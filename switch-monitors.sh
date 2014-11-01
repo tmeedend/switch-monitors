@@ -1,29 +1,30 @@
 #!/bin/bash
 PID=""
+CONFIG_FILE=~/.monitors-enabled
 
 function get_enabled_monitors {
-   MONITORS=`cat $MM_HOME/monitors-enabled`
+   MONITORS=`cat $CONFIG_FILE`
 }
 
 
 function dvi_only {
 	echo  "Enabling DVI only"
 	xrandr --output HDMI-0 --off --output DVI-I-3 --primary
-	echo "DVI_ONLY" > $MM_HOME/monitors-enabled
+	echo "DVI_ONLY" > $CONFIG_FILE
 	nvidia-settings --load-config-only
 }
 
 function hdmi_only {
 	echo  "Enabling HDMI only"
  	xrandr --output DVI-I-3 --off --output HDMI-0 --primary
-	echo "HDMI_ONLY" > $MM_HOME/monitors-enabled
+	echo "HDMI_ONLY" > $CONFIG_FILE
 	nvidia-settings --load-config-only
 }
 
 function both {
 	echo  "Enabling BOTH MONITORS"
 	xrandr --output HDMI-0 --auto --left-of DVI-I-3 --output DVI-I-3 --primary
-	echo "BOTH" > $MM_HOME/monitors-enabled
+	echo "BOTH" > $CONFIG_FILE
 	nvidia-settings --load-config-only
 }
 
